@@ -97,3 +97,95 @@ void loop() {
   }
 }
 ```
+### 期中解答
+```c++
+void setup() {
+  for (int i = 2;i < 10;i++) {
+    pinMode(i,OUTPUT);
+  }
+  pinMode(A0,INPUT);
+  pinMode(A1,INPUT);
+  pinMode(A2,INPUT);
+}
+
+void Q1() {
+  for (int i = 2;i < 10;i+=2) {
+    digitalWrite(i,HIGH);
+  }
+  delay(500);
+  for (int i = 2;i < 10;i+=2) {
+    digitalWrite(i,LOW);
+  }
+  for (int i = 3;i < 10;i+=2) {
+    digitalWrite(i,HIGH);
+  }
+  delay(500);
+  for (int i = 3;i < 10;i+=2) {
+    digitalWrite(i,LOW);
+  }
+}
+
+void Q2() {
+  int VR_Sensor;
+  VR_Sensor = analogRead(A2);
+  int Led = map(VR_Sensor, 0, 1020, 2, 6);
+  for (int i = 2;i < 10;i++) {
+    digitalWrite(i,LOW);
+  }
+  digitalWrite(Led,HIGH);
+  for (int i = 2;i < 10;i++) {
+    digitalWrite(i,LOW);
+  }
+}
+
+int tmp = 2;
+void Q3() {
+  while (tmp >= 2 && tmp <= 10) {
+    int delay_Value = map(analogRead(A2),0,1020,100,500);
+    digitalWrite(tmp,HIGH);
+    delay(delay_Value);
+    digitalWrite(tmp,LOW);
+    tmp++;
+  }
+  if (tmp > 10) tmp = 2;
+}
+
+void Q4() {
+  while (tmp >= 2 && tmp <=10) {
+    digitalWrite(tmp,HIGH);
+    delay(500);
+    digitalWrite(tmp,LOW);
+    tmp--;
+  }
+  if (tmp < 2) tmp = 10;
+}
+
+void loop() {
+  int ButtonState1,ButtonState2,ButtonValue,VR_Sensor;
+  ButtonState1 = digitalRead(A0);
+  ButtonState2 = digitalRead(A1);
+  if (ButtonState1 == HIGH && ButtonState2 == HIGH) {
+    ButtonValue = 4;
+  } else if (ButtonState1 == LOW && ButtonState2 == HIGH) {
+    ButtonValue = 3;
+  } else if (ButtonState1 == HIGH && ButtonState2 == LOW) {
+    ButtonValue = 2;
+  } else {
+    ButtonValue = 1;
+  }
+  switch(ButtonValue) {
+    case 1:
+      Q1();
+      break;
+    case 2:
+      Q2();
+      break;
+    case 3:
+      Q3();
+      break;
+    case 4:
+      Q4();
+      break;
+  }
+}
+```
